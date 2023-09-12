@@ -33,6 +33,18 @@ Columns:
 #### **2.1 Descriptive Analysis**:
 - Obtain summary statistics for all columns to understand the dataset's distribution.
 
+    Summary Statistics:
+    First, let's obtain some descriptive statistics for the numerical columns and see the unique values for categorical columns.
+
+    2.1.1. For numerical columns: mean, median, mode, standard deviation, min, max.
+    2.1.2. For categorical columns: number of unique values and the top 5 frequent values.
+
+2. Data Visualization:
+2.1. Histogram of the salary column to see its distribution.
+2.2. Bar plot of city to visualize the distribution of jobs by city.
+2.3. Bar plot of experience to see the distribution of jobs by experience level.
+2.4. Bar plot of employment to understand the distribution by employment type.
+   3. 
 #### **2.2 Visualization**:
 - Plot the distribution of jobs by city.
 - Visualize the distribution of jobs by experience level.
