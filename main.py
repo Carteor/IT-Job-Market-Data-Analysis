@@ -1,12 +1,19 @@
 import pandas as pd
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+data = pd.read_csv('data.csv')
 
+print(data.isnull().sum())
+print("Performing data cleanup")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+data['salary_missing'] = data['salary'].isnull().astype(int)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+data['salary'].fillna(-1, inplace=True)
+
+data['requirements'].fillna('Not Specified', inplace=True)
+data['responsibilities'].fillna('Not Specified', inplace=True)
+
+data['schedule'].fillna(-1, inplace=True)
+
+data['publish_date'] = pd.to_datetime(data['publish_date'], format='%d-%m-%Y')
+
+print("Results:", data.isnull().sum())
