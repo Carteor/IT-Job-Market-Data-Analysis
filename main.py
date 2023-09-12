@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 data = pd.read_csv('data.csv')
 
@@ -8,9 +9,15 @@ print("Performing data cleanup")
 
 data['salary_missing'] = data['salary'].isnull().astype(int)
 
-data['salary'].fillna(-1, inplace=True)
-data['salary'] = pd.to_numeric(data['salary'], errors='coerce')
-data['salary'].fillna(-1, inplace=True)
+data['currency'] = data['salary'].str.extract(r'([A-Za-z]+)')
+
+unique_currencies = data['currency'].unique()
+print(unique_currencies)
+
+data['numeric_salary'] = data['salary'].str.replace(r'[^\d]', '', regex=True).astype(float)
+#data['salary'].fillna(-1, inplace=True)
+
+
 
 data['requirements'].fillna('Not Specified', inplace=True)
 data['responsibilities'].fillna('Not Specified', inplace=True)
@@ -28,9 +35,10 @@ print(numerical_summary)
 categorical_summary = data.describe(include="object")
 print(categorical_summary)
 
-# Histogram for the salary column
-plt.hist(data['salary'], bins=30, edgecolor='black')
-plt.title('Salary Distribution')
-plt.xlabel('Salary')
-plt.ylabel('Frequency')
+# Boxplot for each currency
+plt.figure(figsize=(12,8))
+sns.boxplot(x='currency', y='numeric_salary', data=data)
+plt.title('Salary Distribution by Currency')
+plt.ylabel('Salary')
+plt.xlabel('Currency')
 plt.show()
