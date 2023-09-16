@@ -94,7 +94,16 @@ def plot_jobs_by_experience(data):
     plt.xticks(rotation=45)
     plt.show()
 
+def plot_job_titles_frequency(data, top_n=10):
+    plt.figure(figsize=(10, 6))
+    sns.countplot(y=data['title'], order=data['title'].value_counts().iloc[:top_n].index, palette='viridis')
+    plt.title(f'Top {top_n} Most Common Job Titles')
+    plt.xlabel('Number of Job Postings')
+    plt.ylabel('Job Titles')
+    plt.show()
+
 #plot_salary_distribution(data)
 #plot_jobs_by_employment(data)
 #plot_city_distribution(data)
-plot_jobs_by_experience(data)
+#plot_jobs_by_experience(data)
+plot_job_titles_frequency(data, top_n=10)
