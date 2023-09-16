@@ -2,6 +2,7 @@
 
 ### **Objective**:
 To gain insights into the job market based on the dataset provided, with a focus on positions related to data roles.
+Dataset used https://www.kaggle.com/datasets/armanzhalgasbayev/it-jobs-in-kazakhstan-general-dataset?resource=download
 
 ### **Dataset**:
 File Name: `results.csv`
@@ -39,13 +40,9 @@ Columns:
     2.1.1. For numerical columns: mean, median, mode, standard deviation, min, max.
     2.1.2. For categorical columns: number of unique values and the top 5 frequent values.
 
-2. Data Visualization:
-2.1. Histogram of the salary column to see its distribution.
-2.2. Bar plot of city to visualize the distribution of jobs by city.
-2.3. Bar plot of experience to see the distribution of jobs by experience level.
-2.4. Bar plot of employment to understand the distribution by employment type.
-   3. 
 #### **2.2 Visualization**:
+- Histogram of the salary column to see its distribution. 
+- Bar plot of employment to understand the distribution by employment type.
 - Plot the distribution of jobs by city.
 - Visualize the distribution of jobs by experience level.
 - Show the distribution of jobs by employment type.
@@ -71,5 +68,3 @@ Columns:
 
 #### **4.3 Code Comments**:
 - Ensure code is well-commented for clarity and reproducibility.
-
----
