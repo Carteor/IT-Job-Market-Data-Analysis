@@ -55,17 +55,20 @@ print(categorical_summary)
 
 # Boxplot for each currency 'KZT' 'RUR' 'USD' 'EUR'
 def plot_salary_distribution(data):
-    for currency in unique_currencies:
-        plt.figure(figsize=(15, 7))
-        sns.histplot(data[data['currency'] == currency]['avg_salary'], bins=50, kde=True, color='purple')
-        plt.title(f'Average Salary Distribution ({currency})')
-        plt.ylabel('Frequency')
-        plt.xlabel('Average Salary')
-        plt.show()
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
+
+    for idx, currency in enumerate(unique_currencies):
+        row, col = divmod(idx, 2)
+        sns.histplot(data[data['currency'] == currency]['avg_salary'], bins=50, kde=True, color='purple', ax=axes[row][col])
+        axes[row][col].set_title(f'Average Salary Distribution ({currency})')
+        axes[row][col].set_ylabel('Frequency')
+        axes[row][col].set_xlabel('Average Salary')
+    plt.tight_layout()
+    plt.show()
 
 # Bar plot for the distribution of jobs by employment type
 def plot_jobs_by_employment(data):
-    plt.figure(figsize=(15, 7))
+    plt.figure(figsize=(10, 6))
     sns.countplot(data=data, x='employment', order=data['employment'].value_counts().index, palette='viridis')
     plt.title('Distribution of Jobs by Employment Type')
     plt.ylabel('Number of Job Postings')
@@ -74,7 +77,7 @@ def plot_jobs_by_employment(data):
     plt.show()
 
 def plot_city_distribution(data):
-    plt.figure(figsize=(15, 7))
+    plt.figure(figsize=(10, 6))
     sns.countplot(data=data, x='city', order=data['city'].value_counts().index, palette='viridis')
     plt.title("Distribution of Jobs by City")
     plt.ylabel('Number of Job Postings')
@@ -82,13 +85,16 @@ def plot_city_distribution(data):
     plt.xticks(rotation=45)
     plt.show()
 
-# List of plotting functions
-plotting_functions = {
-    'Average Salary Distribution': plot_salary_distribution,
-    'Employment Type Distribution': plot_jobs_by_employment,
-    'City Distribution': plot_city_distribution
-}
+def plot_jobs_by_experience(data):
+    plt.figure(figsize=(10, 6))
+    sns.countplot(data=data, x='experience', order=data['experience'].value_counts().index, palette='viridis')
+    plt.title('Distribution of Jobs by ExperienceLevel')
+    plt.ylabel('Number pf Job Postings')
+    plt.xlabel('Experience Level')
+    plt.xticks(rotation=45)
+    plt.show()
 
-plot_salary_distribution(data)
-plot_jobs_by_employment(data)
-plot_city_distribution(data)
+#plot_salary_distribution(data)
+#plot_jobs_by_employment(data)
+#plot_city_distribution(data)
+plot_jobs_by_experience(data)
