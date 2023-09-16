@@ -1,6 +1,9 @@
+import math
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 data = pd.read_csv('data.csv')
 
@@ -49,15 +52,43 @@ print(numerical_summary)
 categorical_summary = data.describe(include="object")
 print(categorical_summary)
 
+
 # Boxplot for each currency 'KZT' 'RUR' 'USD' 'EUR'
-plt.figure(figsize=(15, 10))
+def plot_salary_distribution(data):
+    for currency in unique_currencies:
+        plt.figure(figsize=(15, 7))
+        sns.histplot(data[data['currency'] == currency]['avg_salary'], bins=50, kde=True, color='purple')
+        plt.title(f'Average Salary Distribution ({currency})')
+        plt.ylabel('Frequency')
+        plt.xlabel('Average Salary')
+        plt.show()
 
-for idx, currency in enumerate(unique_currencies, 1):
-    plt.subplot(2,2,idx)
-    sns.histplot(data[data['currency'] == currency]['avg_salary'],bins=50,kde=True,color='purple')
-    plt.title(f'Average Salary Distribution ({currency})')
-    plt.ylabel('Frequency')
-    plt.xlabel('Average Salary')
+# Bar plot for the distribution of jobs by employment type
+def plot_jobs_by_employment(data):
+    plt.figure(figsize=(15, 7))
+    sns.countplot(data=data, x='employment', order=data['employment'].value_counts().index, palette='viridis')
+    plt.title('Distribution of Jobs by Employment Type')
+    plt.ylabel('Number of Job Postings')
+    plt.xlabel('Employment Type')
+    plt.xticks(rotation=45)
+    plt.show()
 
-plt.tight_layout()
-plt.show()
+def plot_city_distribution(data):
+    plt.figure(figsize=(15, 7))
+    sns.countplot(data=data, x='city', order=data['city'].value_counts().index, palette='viridis')
+    plt.title("Distribution of Jobs by City")
+    plt.ylabel('Number of Job Postings')
+    plt.xlabel('City')
+    plt.xticks(rotation=45)
+    plt.show()
+
+# List of plotting functions
+plotting_functions = {
+    'Average Salary Distribution': plot_salary_distribution,
+    'Employment Type Distribution': plot_jobs_by_employment,
+    'City Distribution': plot_city_distribution
+}
+
+plot_salary_distribution(data)
+plot_jobs_by_employment(data)
+plot_city_distribution(data)
