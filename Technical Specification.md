@@ -45,7 +45,6 @@ Columns:
 - Bar plot of employment to understand the distribution by employment type.
 - Plot the distribution of jobs by city.
 - Visualize the distribution of jobs by experience level.
-- Show the distribution of jobs by employment type.
 - Analyze the frequency of certain job titles.
 
 ### **3. Simple Analysis**:

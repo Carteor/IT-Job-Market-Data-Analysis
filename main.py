@@ -102,8 +102,21 @@ def plot_job_titles_frequency(data, top_n=10):
     plt.ylabel('Job Titles')
     plt.show()
 
+def plot_postings_by_day(data):
+    daily_counts = data.groupby('publish_date').size()
+
+    plt.figure(figsize=(12, 7))
+    daily_counts.plot(marker='o', linestyle='-')
+    plt.title("Number of Job Postings by Day")
+    plt.ylabel("Number of Job Postings")
+    plt.xlabel("Date")
+    plt.grid(True, which="both", ls="--", c='0.65')
+    plt.tight_layout()
+    plt.show()
+
 #plot_salary_distribution(data)
 #plot_jobs_by_employment(data)
 #plot_city_distribution(data)
 #plot_jobs_by_experience(data)
-plot_job_titles_frequency(data, top_n=10)
+#plot_job_titles_frequency(data, top_n=10)
+plot_postings_by_day(data)
