@@ -3,7 +3,8 @@ import math
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
+from collections import Counter
+import string
 
 data = pd.read_csv('data.csv')
 
@@ -114,9 +115,47 @@ def plot_postings_by_day(data):
     plt.tight_layout()
     plt.show()
 
+def analyze_requirements_responsibilities(data, top_n=5):
+    def tokenize_text(text):
+        tokens = text.lower().translate(str.maketrans('', '', string.punctuation)).split()
+        return tokens
+
+    def tokenize_column(title, column_name):
+        filtered_data = data[data['title'] == title][column_name].dropna()
+        all_text = " ".join(filtered_data)
+        tokens = tokenize_text(all_text)
+        return Counter(tokens)
+
+    def plot_most_common(title, column_name, most_common, subplot_position, color):
+        if most_common:
+            words, counts = zip(*most_common)
+            plt.subplot(1, 2, subplot_position)
+            plt.barh(words, counts, color=color)
+            plt.xlabel('Frequency')
+            plt.title(f'Top {top_n} {column_name.capitalize()} Words for {title}')
+            plt.gca().invert_yaxis()
+
+    titles_to_analyze = ['Data Scientist', 'Software Engineer', 'Project Manager']
+
+    for title in titles_to_analyze:
+        req_tokens = tokenize_column(title, 'requirements')
+        resp_tokens = tokenize_column(title, 'responsibilities')
+
+        plt.figure(figsize=(15, 6))
+
+        req_most_common = req_tokens.most_common(top_n)
+        plot_most_common(title, 'requirement', req_most_common, 1, 'blue')
+
+        resp_most_common = resp_tokens.most_common(top_n)
+        plot_most_common(title, 'responsibility', resp_most_common, 2, 'red')
+
+        plt.tight_layout()
+        plt.show()
+
 #plot_salary_distribution(data)
 #plot_jobs_by_employment(data)
 #plot_city_distribution(data)
 #plot_jobs_by_experience(data)
 #plot_job_titles_frequency(data, top_n=10)
-plot_postings_by_day(data)
+#plot_postings_by_day(data)
+analyze_requirements_responsibilities(data, top_n=10)
